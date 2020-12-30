@@ -172,24 +172,7 @@ const newList = list.filter((obj) =>
   );
 										</code></pre>
                                     </div><!--//code-block-->
-                                </div><!--//section-block-->
-                                                                <div id="redux-app" class="section-block">
-                                    <div class="code-block">
-                                        <h6>App</h6>
-                                        <pre><code class="language-javascript">
-import { connect } from "react-redux";
-import * as actions from "./actions/index";
-function App(props) {
-    function onToggleForm() {
-        props.onToggleForm();
-    }
-      console.log(props.redux_toogle);
-    ...
-}
-
-                                        </code></pre>
-                                    </div><!--//code-block-->
-                                </div>                              
+                                </div><!--//section-block-->                            
                                 <div id="reactjs-form" class="section-block">
                                     <div class="code-block">
                                         <h6>Form</h6>
@@ -365,6 +348,26 @@ export default connect(mapStateToProps, mapDispatchToProps)(App)
                                         </code></pre>
                                     </div><!--//code-block-->
                                 </div>
+                                <div id="redux-app" class="section-block">
+                                    <div class="code-block">
+                                        <h6>App</h6>
+                                        <pre><code class="language-javascript">
+import { connect } from "react-redux";
+import * as actions from "./actions/index";
+function App(props) {
+    function onToggleForm() {
+        props.onToggleForm();
+    }
+    function addNote(content) {
+        props.addNote(content);
+    }
+    console.log(props.note);
+    ...
+}
+
+                                        </code></pre>
+                                    </div><!--//code-block-->
+                                </div>  
 							</section><!--//doc-section-->
 							<section id="refer" class="doc-section">
                                 <div id="reactjs-install" class="section-block">
