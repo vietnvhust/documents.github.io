@@ -173,6 +173,60 @@ const newList = list.filter((obj) =>
 										</code></pre>
                                     </div><!--//code-block-->
                                 </div><!--//section-block-->
+                                                                <div id="redux-app" class="section-block">
+                                    <div class="code-block">
+                                        <h6>App</h6>
+                                        <pre><code class="language-javascript">
+import { connect } from "react-redux";
+import * as actions from "./actions/index";
+function App(props) {
+    function onToggleForm() {
+        props.onToggleForm();
+    }
+      console.log(props.redux_toogle);
+    ...
+}
+
+                                        </code></pre>
+                                    </div><!--//code-block-->
+                                </div>                              
+                                <div id="reactjs-form" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Form</h6>
+                                        <pre><code class="language-javascript">
+&lt;input type="text" className="form-control" onChange={(e) => handleChange(e)} name="title" value={todo.title} /&gt;
+                                    
+function handleChange(e){
+    const target = e.target;
+    const name = target.name;
+    const value = target.name === 'checkbox' ? target.checked : target.value
+    setTodo({
+      ...todo,
+      [name]: value,
+    });
+}
+
+&lt;form onSubmit={(e) => onSubmit(e)}&gt;
+...
+&lt;/form&gt;
+
+function onSubmit(e) {
+    if (
+      todoEdit.id === "" ||
+      todoEdit.id === "undefined" ||
+      todoEdit.id === null ||
+      todoEdit.id === undefined
+    ) {
+      todo.id = uuidv4();
+    } else {
+      todo.id = todoEdit.id;
+    }
+    props.onSubmit(todo);
+    e.preventDefault();
+}
+                                        </code></pre>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
                             </section><!--//doc-section-->
 							<section id="redux-section" class="doc-section">
 
@@ -286,60 +340,6 @@ ReactDOM.render(
 										</code></pre>
                                     </div><!--//code-block-->
 								</div>
-								<div id="redux-app" class="section-block">
-									<div class="code-block">
-                                        <h6>App</h6>
-                                        <pre><code class="language-javascript">
-import { connect } from "react-redux";
-import * as actions from "./actions/index";
-function App(props) {
-	function onToggleForm() {
-		props.onToggleForm();
-	}
-	  console.log(props.redux_toogle);
-	...
-}
-
-										</code></pre>
-                                    </div><!--//code-block-->
-								</div>								
-								<div id="reactjs-form" class="section-block">
-                                    <div class="code-block">
-                                        <h6>Form</h6>
-                                        <pre><code class="language-javascript">
-&lt;input type="text" className="form-control" onChange={(e) => handleChange(e)} name="title" value={todo.title} /&gt;
-									
-function handleChange(e){
-    const target = e.target;
-    const name = target.name;
-    const value = target.name === 'checkbox' ? target.checked : target.value
-    setTodo({
-      ...todo,
-      [name]: value,
-    });
-}
-
-&lt;form onSubmit={(e) => onSubmit(e)}&gt;
-...
-&lt;/form&gt;
-
-function onSubmit(e) {
-    if (
-      todoEdit.id === "" ||
-      todoEdit.id === "undefined" ||
-      todoEdit.id === null ||
-      todoEdit.id === undefined
-    ) {
-      todo.id = uuidv4();
-    } else {
-      todo.id = todoEdit.id;
-    }
-    props.onSubmit(todo);
-    e.preventDefault();
-}
-										</code></pre>
-                                    </div><!--//code-block-->
-                                </div><!--//section-block-->
 							</section><!--//doc-section-->
 							<section id="refer" class="doc-section">
                                 <div id="reactjs-install" class="section-block">
@@ -377,8 +377,8 @@ https://redux-cart-complete.netlify.app/
                                         <a class="nav-link scrollto" href="#reactjs-install">Install</a>
 										<a class="nav-link scrollto" href="#reactjs-create-component-cli">Create Component CLI</a>  
 										<a class="nav-link scrollto" href="#reactjs-scss">Scss</a> 	
-<a class="nav-link scrollto" href="#reactjs-map">Map</a> 											
-<a class="nav-link scrollto" href="#reactjs-sort">Sort</a> 											
+                                        <a class="nav-link scrollto" href="#reactjs-map">Map</a> 											
+                                        <a class="nav-link scrollto" href="#reactjs-sort">Sort</a> 											
 										<a class="nav-link scrollto" href="#reactjs-deploy">Deploy</a>  										
 										<a class="nav-link scrollto" href="#reactjs-get-localstorage">UseEffect Get Localstorage</a>  										
 										<a class="nav-link scrollto" href="#reactjs-localstorage">Localstorage</a>  										
@@ -396,6 +396,7 @@ https://redux-cart-complete.netlify.app/
 										<a class="nav-link scrollto" href="#redux-reducer">Reducer.js</a>
 										<a class="nav-link scrollto" href="#redux-indexjs">Index.js</a>
 										<a class="nav-link scrollto" href="#redux-app">App.js</a>
+                                        <a class="nav-link scrollto" href="#redux-connect">Connect</a>
 									</nav>
 									<a class="nav-link scrollto" href="#refer">Refer</a>
 	                            </nav><!--//doc-menu-->
