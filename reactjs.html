@@ -340,6 +340,31 @@ ReactDOM.render(
 										</code></pre>
                                     </div><!--//code-block-->
 								</div>
+                                <div id="redux-connect" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Connect</h6>
+                                        <pre><code class="language-javascript">
+//Gán dispatch thành props
+const mapDispatchToProps = (dispatch) =>  {
+  return {
+    addNote: (content) => {
+      dispatch(actAddNote(content))
+    }
+  }
+}
+ 
+//Gán giá trị của state thành props
+const mapStateToProps = (state, ownProps) => {
+  return {
+    note: state.note
+  }
+}
+ 
+//Export component với két nối redux.
+export default connect(mapStateToProps, mapDispatchToProps)(App) 
+                                        </code></pre>
+                                    </div><!--//code-block-->
+                                </div>
 							</section><!--//doc-section-->
 							<section id="refer" class="doc-section">
                                 <div id="reactjs-install" class="section-block">
