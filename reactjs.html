@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Reactjs</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="favicon.ico">  
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- FontAwesome JS -->
+    <script defer src="assets/fontawesome/js/all.js"></script>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">  
+      
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+	
+	<style>
+		code.language-javascript {
+			width:100%;
+		}
+	</style>
+    
+</head> 
+
+<body class="body-green">
+    <div class="page-wrapper">
+        <div class="doc-wrapper">
+            <div class="container">
+                <div class="doc-body row">
+                    <div class="doc-content col-md-9 col-12 order-1">
+                        <div class="content-inner">
+                            <section id="reactjs-section" class="doc-section">
+                                <div id="reactjs-install" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Install</h6>
+                                        <pre><code class="language-javascript">
+npm install -g create-react-app
+
+create-react-app PROJECT_NAME
+
+cd PROJECT_NAME
+
+npm start
+										</code></pre>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+								<div id="reactjs-create-component-cli" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Create Component CLI</h6>
+                                        <pre><code class="language-javascript">
+npm install -g create-reactjs-component
+
+cd PROJECT_NAME
+
+create-reactjs-component COMPONENT_NAME
+										</code></pre>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+								<div id="reactjs-deploy" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Deploy</h6>
+                                        <pre><code class="language-javascript">
+// package.json										
+"homepage": "http://yourdomainname.whatever"
+
+npm run-script build
+										</code></pre>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+								<div id="reactjs-scss" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Scss</h6>
+                                        <pre><code class="language-javascript">
+npm install node-sass@4.14.1
+
+import './App.scss';
+										</code></pre>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+								<div id="reactjs-map" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Map</h6>
+                                        <pre><code class="language-javascript">
+const elmItem = list.map((todo, index) => {
+    return (
+      &lt;tr key={index}&gt;
+        &lt;td&gt;{index + 1}&lt;/td&gt;
+        &lt;td{todo.title}&lt;/td&gt;     
+      &lt;/tr&gt;
+    );
+});
+										</code></pre>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+								<div id="reactjs-get-localstorage" class="section-block">
+                                    <div class="code-block">
+                                        <h6>UseEffect Get Localstorage</h6>
+                                        <pre><code class="language-javascript">
+const [list, setList] = useState([]);										
+useEffect(() => {
+    const listLocalStorage = localStorage.getItem("getList")
+      ? JSON.parse(localStorage.getItem("getList"))
+      : [];
+    setList(listLocalStorage);
+}, []);
+										</code></pre>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+								<div id="reactjs-localstorage" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Localstorage</h6>
+                                        <pre><code class="language-javascript">
+// Set
+localStorage.setItem("getList", JSON.stringify(newList));
+// Get
+JSON.parse(localStorage.getItem("getList"));
+										</code></pre>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+								<div id="reactjs-sort" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Sort</h6>
+                                        <pre><code class="language-javascript">
+let newList = [...list];
+// Z-A
+newList = newList.sort((a, b) =>
+	a.title > b.title ? -1 : b.title > a.title ? 1 : 0
+);
+// A-Z
+newList = newList.sort((a, b) =>
+	a.title > b.title ? 1 : b.title > a.title ? -1 : 0
+);
+										</code></pre>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+								<div id="reactjs-findindex" class="section-block">
+                                    <div class="code-block">
+                                        <h6>FindIndex</h6>
+                                        <pre><code class="language-javascript">
+const index = list.findIndex((x) => x.id === todo.id);
+										</code></pre>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+								<div id="reactjs-remove" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Remove Object</h6>
+                                        <pre><code class="language-javascript">
+const newList = [...list];
+const index = list.findIndex((x) => x.id === todo.id);
+newList.splice(index, 1);
+										</code></pre>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+								<div id="reactjs-search" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Search string in [{}{}{}]</h6>
+                                        <pre><code class="language-javascript">
+const newList = list.filter((obj) =>
+	Object.values(obj).some((val) =>
+	  val
+		.toString()
+		.toLowerCase()
+		.includes(searchTitle.toString().toLowerCase())
+	)
+  );
+										</code></pre>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+							<section id="redux-section" class="doc-section">
+
+								<div id="redux-install" class="section-block">
+									<div class="code-block">
+                                        <h6>Install</h6>
+                                        <pre><code class="language-javascript">
+npm install redux react-redux --save-dev
+										</code></pre>
+                                    </div><!--//code-block-->
+								</div>
+								<div id="redux-structure" class="section-block">
+									<div class="code-block">
+                                        <h6>Structure</h6>
+                                        <pre><code class="language-javascript">
+src/
+....constants/
+        ActionTypes.js
+....actions/
+        index.js
+....reducers/
+        ...
+        index.js
+....components/     
+										</code></pre>
+                                    </div><!--//code-block-->
+								</div>
+								<div id="redux-constants" class="section-block">
+									<div class="code-block">
+                                        <h6>Constants/ActionTypes.js</h6>
+                                        <pre><code class="language-javascript">
+export const LIST_ALL = "LIST_ALL";
+export const TOGGLE_FORM = "TOGGLE_FORM";  
+										</code></pre>
+                                    </div><!--//code-block-->
+								</div>
+								<div id="redux-actions" class="section-block">
+									<div class="code-block">
+                                        <h6>Actions/index.js</h6>
+                                        <pre><code class="language-javascript">
+import * as types from './../constants/ActionTypes';
+
+export const listAll = () => {
+  return {
+    type: types.LIST_ALL,
+  };
+};
+
+export const toogleForm = () => {
+  return {
+    type: types.TOGGLE_FORM,
+  };
+};
+										</code></pre>
+                                    </div><!--//code-block-->
+								</div>
+								<div id="redux-reducer" class="section-block">
+									<div class="code-block">
+                                        <h6>Reducer.js</h6>
+                                        <pre><code class="language-javascript">
+import * as types from "./../constants/ActionTypes";
+
+const initialState = (localStorage.getItem("getList")
+  ? JSON.parse(localStorage.getItem("getList"))
+  : []);
+
+const myReducer = (state=initialState, action) => {
+    switch (action.type) {
+      case types.LIST_ALL:
+        return state;
+      default:
+        return state;
+    }
+}
+
+export default myReducer;
+										</code></pre>
+                                        <pre><code class="language-javascript">
+import { combineReducers } from "redux";
+import todos from './todos';
+import toogle from "./toogle";
+
+const myReducer = combineReducers({
+  todos,
+  toogle,
+});
+
+export default myReducer;
+										</code></pre>
+                                    </div><!--//code-block-->
+								</div>
+								<div id="redux-indexjs" class="section-block">
+									<div class="code-block">
+                                        <h6>Index.js</h6>
+                                        <pre><code class="language-javascript">
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+
+import myReducer from "./reducers/index";
+
+const store = createStore(
+  myReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+ReactDOM.render(
+  &lt;Provider store={store}&gt;
+    &lt;App /&gt;
+  &lt;/Provider&gt;,
+  document.getElementById("root")
+);  
+										</code></pre>
+                                    </div><!--//code-block-->
+								</div>
+								<div id="redux-app" class="section-block">
+									<div class="code-block">
+                                        <h6>App</h6>
+                                        <pre><code class="language-javascript">
+import { connect } from "react-redux";
+import * as actions from "./actions/index";
+function App(props) {
+	function onToggleForm() {
+		props.onToggleForm();
+	}
+	  console.log(props.redux_toogle);
+	...
+}
+
+										</code></pre>
+                                    </div><!--//code-block-->
+								</div>
+								<div id="redux-mapDispatchToProps-mapStateToProps" class="section-block">
+								<div id="reactjs-form" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Form</h6>
+                                        <pre><code class="language-javascript">
+&lt;input type="text" className="form-control" onChange={(e) => handleChange(e)} name="title" value={todo.title} /&gt;
+									
+function handleChange(e){
+    const target = e.target;
+    const name = target.name;
+    const value = target.name === 'checkbox' ? target.checked : target.value
+    setTodo({
+      ...todo,
+      [name]: value,
+    });
+}
+
+&lt;form onSubmit={(e) => onSubmit(e)}&gt;
+...
+&lt;/form&gt;
+
+function onSubmit(e) {
+    if (
+      todoEdit.id === "" ||
+      todoEdit.id === "undefined" ||
+      todoEdit.id === null ||
+      todoEdit.id === undefined
+    ) {
+      todo.id = uuidv4();
+    } else {
+      todo.id = todoEdit.id;
+    }
+    props.onSubmit(todo);
+    e.preventDefault();
+}
+										</code></pre>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+							</section><!--//doc-section-->
+							<section id="refer" class="doc-section">
+                                <div id="reactjs-install" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Refer</h6>
+                                        <pre><code class="language-javascript">
+https://vhnam.github.io/tutorials/to-da-an-hanh-voi-redux-nhu-the-nao/
+https://www.valentinog.com/blog/redux/
+0.
+https://github.com/john-smilga/react-advanced-2020
+1. 
+https://react-projects.netlify.app/
+https://github.com/john-smilga/react-projects
+2. 
+https://github.com/john-smilga/starter-project-react-github-search-users
+https://react-search-github-users.netlify.app/login
+3. 
+https://react-course-comfy-sloth-store.netlify.app/
+https://github.com/john-smilga/react-course-comfy-store-project-recording
+4. 
+https://github.com/john-smilga/starter-project-redux-tutorial-cart
+https://redux-cart-complete.netlify.app/
+										</code></pre>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+                        </div><!--//content-inner-->
+                    </div><!--//doc-content-->
+                    <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
+                        <div id="doc-nav" class="doc-nav">
+	                        
+	                            <nav id="doc-menu" class="nav doc-menu flex-column sticky">
+	                                <a class="nav-link scrollto" href="#reactjs-section">Reactjs</a>
+                                    <nav class="doc-sub-menu nav flex-column">
+                                        <a class="nav-link scrollto" href="#reactjs-install">Install</a>
+										<a class="nav-link scrollto" href="#reactjs-create-component-cli">Create Component CLI</a>  
+										<a class="nav-link scrollto" href="#reactjs-scss">Scss</a> 	
+<a class="nav-link scrollto" href="#reactjs-map">Map</a> 											
+<a class="nav-link scrollto" href="#reactjs-sort">Sort</a> 											
+										<a class="nav-link scrollto" href="#reactjs-deploy">Deploy</a>  										
+										<a class="nav-link scrollto" href="#reactjs-get-localstorage">UseEffect Get Localstorage</a>  										
+										<a class="nav-link scrollto" href="#reactjs-localstorage">Localstorage</a>  										
+										<a class="nav-link scrollto" href="#reactjs-findindex">FindIndex</a>  										
+										<a class="nav-link scrollto" href="#reactjs-remove">Remove Object</a>  										
+										<a class="nav-link scrollto" href="#reactjs-search">Search</a>  										
+										<a class="nav-link scrollto" href="#reactjs-form">Form</a>  										
+                                    </nav><!--//nav-->
+									<a class="nav-link scrollto" href="#redux-section">Redux</a>
+									<nav class="doc-sub-menu nav flex-column">
+										<a class="nav-link scrollto" href="#redux-install">Install</a>
+										<a class="nav-link scrollto" href="#redux-structure">Structure</a>
+										<a class="nav-link scrollto" href="#redux-constants">Constants/ActionTypes.js</a>
+										<a class="nav-link scrollto" href="#redux-actions">Actions/index</a>										
+										<a class="nav-link scrollto" href="#redux-reducer">Reducer.js</a>
+										<a class="nav-link scrollto" href="#redux-indexjs">Index.js</a>
+										<a class="nav-link scrollto" href="#redux-app">App.js</a>
+										<a class="nav-link scrollto" href="#redux-mapDispatchToProps-mapStateToProps">mapDispatchToProps</a>
+										
+									</nav>
+									<a class="nav-link scrollto" href="#refer">Refer</a>
+	                            </nav><!--//doc-menu-->
+	                        
+                        </div>
+                    </div><!--//doc-sidebar-->
+                </div><!--//doc-body-->              
+            </div><!--//container-->
+        </div><!--//doc-wrapper-->
+
+    </div><!--//page-wrapper-->
+
+    <!-- Main Javascript -->          
+    <script type="text/javascript" src="assets/plugins/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>    
+    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>      
+    <script type="text/javascript" src="assets/plugins/stickyfill/dist/stickyfill.min.js"></script>                                                             
+    <script type="text/javascript" src="assets/js/main.js"></script>
+    
+</body>
+</html> 
+
