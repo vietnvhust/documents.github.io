@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Angular</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link
+        href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
+    <!-- FontAwesome JS -->
+    <script defer src="assets/fontawesome/js/all.js"></script>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+
+    <style>
+        code.language-javascript {
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body class="body-green">
+    <div class="page-wrapper">
+        <div class="doc-wrapper">
+            <div class="container">
+                <div class="doc-body row">
+                    <div class="doc-content col-md-9 col-12 order-1">
+                        <div class="content-inner">
+                            <section id="angular-section" class="doc-section">
+                                <div id="angular-ngFor" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Update</h6>
+                                        <pre><code class="language-javascript">
+&lt;li *ngFor="let cv of todo"&lt;{{cv}}&gt;/li&gt;
+										</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-delaretion" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Delaretion</h6>
+                                        <p>Là một mảng chứa các khai báo</p>
+                                        <pre><code class="language-javascript">
+declarations: [
+    AppComponent,
+    NewCmpComponent
+]
+										</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-import" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Import</h6>
+                                        <p>Chứa các module sử dụng trong ứng dụng hoặc các module sử dụng trong các component</p>
+                                        <pre><code class="language-javascript">
+import { FormsModule } from @angular/forms;
+
+imports: [
+    BrowserModule,
+    FormsModule // Module form mới được thêm
+]
+										</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-providers" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Providers</h6>
+                                        <p>Provider chứa các service mà chúng ta tạo ra</p>
+                                        <pre><code class="language-javascript">
+										</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-bootstrap" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Bootstrap</h6>
+                                        <p>Chứa component chính thực thi chương trình</p>
+                                        <pre><code class="language-javascript">
+										</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-if" class="section-block">
+                                    <div class="code-block">
+                                        <h6>*ngIF</h6>
+                                        <p>Chứa component chính thực thi chương trình</p>
+                                        <pre><code class="language-javascript">
+&lt;p *ngIf="is_available; then true_condition else false_condition">&lt;/p&gt;
+
+&lt;ng-template #true_condition&gt;
+    &lt;p&gt;Điều kiện đúng&lt;/p&gt;
+&lt;/ng-template&gt;
+&lt;ng-template #false_condition&gt;
+    &lt;p&gt;Điều kiện sai&lt;/p&gt;
+&lt;/ng-template&gt;
+
+// OR
+
+&lt;p *ngIf="is_available; else false_condition"&gt;Điều kiện đúng&lt;/p&gt;
+&lt;ng-template #false_condition&gt;Điều kiện sai&lt;/ng-template&gt;
+										</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-event" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Event</h6>
+                                        <pre><code class="language-javascript">
+(event_name) = "function_name($event)"
+
+// Click
+&lt;button (click)="myClickFunction($event)"&gt;Click Me&lt;/button&gt;
+// Change
+&lt;select (change)="changemonths($event)"&gt;
+    &lt;option *ngFor="let i of months"&gt;{{i}}&lt;/option&gt;
+&lt;/select&gt;
+
+// khai báo function myClickFunction trong component.ts
+
+export class AppComponent {
+
+    ...
+    myClickFunction(event) {
+        alert("Nhận được lệnh click từ button");
+    }
+
+    changemonths(event) {
+        alert("Bạn vừa thay đổi tháng trong dropdown");
+    }
+    ...
+}
+                                		</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-ng-template" class="section-block">
+                                    <div class="code-block">
+                                        <h6>ng-template</h6>
+                                        <p>Thường được sử dụng trong cấu trúc điều khiển if/else và switch case</p>
+                                        <pre><code class="language-javascript">
+&lt;p *ngIf="is_available; then true_condition else false_condition">&lt;/p&gt;
+
+&lt;ng-template #true_condition&gt;
+    &lt;p&gt;Điều kiện đúng&lt;/p&gt;
+&lt;/ng-template&gt;
+&lt;ng-template #false_condition&gt;
+    &lt;p&gt;Điều kiện sai&lt;/p&gt;
+&lt;/ng-template&gt;
+                                		</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-directive" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Directive</h6>
+                                        <p>
+                                            Directive trong Angular là một class javascript được khai báo với decorator @directive. Có 3 loại directive trong
+                                            Angular: Component directive, Structural directive và Attribute directive
+                                        </p>
+                                        <pre><code class="language-javascript">
+// Tạo directive
+ng g directive &lt;ten_directive&gt;
+                                		</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-pipe" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Pipe</h6>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Directive</th>
+                                                        <th>Ghi chú</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th>lowercase</th>
+                                                        <td>Chuyển chuỗi thành kí tự thường
+                                                        VD: Freetuts.net thành freetuts.net</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>uppercase</th>
+                                                        <td>Chuyển chuỗi thành kí tự hoa
+                                                        VD: Freetuts.net thành FREETUTS.NET</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>date</th>
+                                                        <td>Chuyển dữ liệu thành định dạng ngày tháng</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>currency</th>
+                                                        <td>Chuyển dữ liệu thành định dạng tiền tệ</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>json</th>
+                                                        <td>Chuyển dữ liệu về dạng JSON</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>percent</th>
+                                                        <td>Chuyển dữ liệu về dạng %</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>decimal</th>
+                                                        <td>Chuyển dữ liệu về dạng thấp phân</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>slice</th>
+                                                        <td>Cắt dữ liệu của mảng. Giống như Array.prototype.slice()</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <pre><code class="language-javascript">
+// Cú pháp
+{{du_lieu | pipe}}
+
+export class AppComponent {
+    title = 'Angular 4 Project!';
+    todaydate = new Date();
+    jsonval = {name:'Rox', age:'25', address:{a1:'Mumbai', a2:'Karnataka'}};
+    months = ["Jan", "Feb", "Mar", "April", "May", "Jun",
+    "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+}
+&lt;div style="width:100%;"&gt;
+    &lt;div style="width:40%;float:left;border:solid 1px black;"&gt;
+        &lt;h1&gt;Uppercase Pipe&lt;/h1&gt;
+        &lt;b&gt;{{title | uppercase}}&lt;/b&gt;&lt;br /&gt;
+
+        &lt;h1&gt;Lowercase Pipe&lt;/h1&gt;
+        &lt;b&gt;{{title | lowercase}}&lt;/b&gt;
+
+        &lt;h1&gt;Currency Pipe&lt;/h1&gt;
+        &lt;b&gt; {{6589.23 | currency:"VND"}}&lt;/b&gt;&lt;br /&gt;
+        &lt;b&gt; {{6589.23 | currency:"VND":true}}&lt;/b&gt; // Giá trị true để hiển thị kí hiệu của tiền tệ.
+
+        &lt;h1&gt;Date pipe&lt;/h1&gt;
+        &lt;b&gt;{{todaydate | date:'d/M/y'}}&lt;/b&gt;&lt;br /&gt;
+        &lt;b&gt;{{todaydate | date:'shortTime'}}&lt;/b&gt;
+
+        &lt;h1&gt;Decimal Pipe&lt;/h1&gt;
+        &lt;b&gt;{{ 454.78787814 | number: '3.4-4' }}&lt;/b&gt; // 3 là phần nguyên, 4-4 là phần thực
+    &lt;/div&gt;
+
+    &lt;div style="width:40%;float:left;border:solid 1px black;"&gt;
+        &lt;h1&gt;Json Pipe&lt;/h1&gt;
+        &lt;b&gt;{{ jsonval | json }}&lt;/b&gt;
+        &lt;h1&gt;Percent Pipe&lt;/h1&gt;
+        &lt;b&gt;{{00.54565 | percent}}&lt;/b&gt;
+        &lt;h1&gt;Slice Pipe&lt;/h1&gt;
+        &lt;b&gt;{{months | slice:2:6}}&lt;/b&gt;
+        // 2 và 6 là vị trí bắt đầu và vị trí kết thúc
+    &lt;/div&gt;
+&lt;/div&gt;
+                                        </code></pre>
+                                        <pre><code class="language-javascript">
+// Tự tạo 1 pipe
+Để tạo và sử dụng 1 pipe trong project bạn cần làm các bước sau:
+1. Tạo pipe
+2. Import pipe vào project: khai báo trong file app.module.ts
+3. Sử dụng pipe trong file html
+                                		</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <!--//section-block-->
+                            </section>
+                            <!--//doc-section-->
+                            </section>
+                            <!--//doc-section-->
+                        </div>
+                        <!--//content-inner-->
+                    </div>
+                    <!--//doc-content-->
+                    <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
+                        <div id="doc-nav" class="doc-nav">
+
+                            <nav id="doc-menu" class="nav doc-menu flex-column sticky">
+                                <a class="nav-link scrollto" href="#angular-section">Angular</a>
+                                <nav class="doc-sub-menu nav flex-column">
+                                    <a class="nav-link scrollto" href="#angular-ngFor">*ngFor</a>
+                                    <a class="nav-link scrollto" href="#angular-ngIf">*ngIf</a>
+                                    <a class="nav-link scrollto" href="#angular-delaretion">Delaretion</a>
+                                    <a class="nav-link scrollto" href="#angular-import">Import</a>
+                                    <a class="nav-link scrollto" href="#angular-providers">Providers</a>
+                                    <a class="nav-link scrollto" href="#angular-bootstrap">Bootstrap</a>
+                                    <a class="nav-link scrollto" href="#angular-event">Event</a>
+                                    <a class="nav-link scrollto" href="#angular-ng-template">ng-template</a>
+                                    <a class="nav-link scrollto" href="#angular-directive">Directive</a>
+                                    <a class="nav-link scrollto" href="#angular-pipe">Pipe</a>
+                                </nav>
+                                <!--//nav-->
+                            </nav>
+                            <!--//doc-menu-->
+
+                        </div>
+                    </div>
+                    <!--//doc-sidebar-->
+                </div>
+                <!--//doc-body-->
+            </div>
+            <!--//container-->
+        </div>
+        <!--//doc-wrapper-->
+
+    </div>
+    <!--//page-wrapper-->
+
+    <!-- Main Javascript -->
+    <script type="text/javascript" src="assets/plugins/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>
+    <script type="text/javascript" src="assets/js/main.js"></script>
+
+</body>
+
+</html>
