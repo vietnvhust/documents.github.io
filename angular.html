@@ -70,15 +70,60 @@ export class AppComponent {
                                         <h6>@Input</h6>
                                         <p>Để để chia sẻ biến hoặc giá trị nào đó từ component cha với component con bên trong, chúng ta có thể sử dụng @Input:</p>
                                         <pre><code class="language-javascript">
+// parent.component.ts
+export class ParentComponent {
+    public isActive : boolean = true;
+}
+// parent.component.html
+&lt;children-component [active]="isActive" &gt;&lt;children-component/&gt;
+&lt;children-component active="{{isActive}}" &gt;&lt;children-component/&gt;
 // children.component.ts
 import { Component, OnInit, Input } from '@angular/core';
+export class ChildrenComponent {
+    @input('active') isActive : boolean = false;
+    private _name : string;
+    @input()
+    set name(name:string){
+        this._name = name;
+    }
+    get name(){
+        return this._name;
+    }
+}
+// children.component.html
+{{isActive?"OK":"NO"}}
                                         </code></pre>
                                     </div>
                                     <!--//code-block-->
                                 </div>
-                                <div id="angular-property-binding" class="section-block">
+                                <div id="angular-output" class="section-block">
                                     <div class="code-block">
-                                        <h6>Property Binding</h6>
+                                        <h6>@Output</h6>
+                                        <p>Để để chia sẻ biến hoặc giá trị nào đó từ component con với component cha, chúng ta có thể sử dụng
+                                            @Output:</p>
+                                        <pre><code class="language-javascript">
+// children.component.ts
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+name:string;
+@Output('key_name') onHandleName = new EventEmitter&lt;string&gt;();
+onSubmit(){
+    this.onHandleName.emit(this.name);
+}
+// parent.component.html
+&lt;children-component (key_name)="onGetName($event)" &gt;&lt;children-component/&gt;
+// parent.component.ts
+export class ParentComponent {
+    onGetName(value){
+        console.log(value);
+    }
+}
+                                        </code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-data-binding" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Data Binding</h6>
                                         <pre><code class="language-javascript">                                         
 // component.html
 &lt;button [disabled]="buttonDisabled"&gt;&lt;/button&gt;
@@ -90,40 +135,85 @@ import { Component, OnInit, Input } from '@angular/core';
 export class Component {
     buttonDisabled = true;
 }
-// Element Binding
+// Property: src, value, href, disabled, hidden
 @Component({
    template: `
        &lt;div&gt;
            &lt;img [src]="imageURL" /&gt;
+           &lt;img bind-src="imageURL" /&gt;
        &lt;/div&gt;
    `
 })
+// Property: colspan, href, border, height, width
+@Component({
+   template: `
+       &lt;table [attr.width]="table_width"&gt;
+           ...
+       &lt;/table&gt;
+   `
+})
+// Class Binding
+@Component({
+   template: `
+       &lt;table [class.table-bordered]="show_class"&gt;
+           ...
+       &lt;/table&gt;
+       &lt;table [class.table-bordered]="show_class_text==='show'"&gt;
+           ...
+       &lt;/table&gt;
+   `
+})
+// Style Binding
+@Component({
+   template: `
+       &lt;table [style.background-color]="is_red?'red':'blue'"&gt;
+           ...
+       &lt;/table&gt;
+       &lt;table [style.background-color]="'green'"&gt;
+           ...
+       &lt;/table&gt;
+       &lt;table [style.font-size.px]="size"&gt;
+           ...
+       &lt;/table&gt;
+   `
+})
 export class AppComponent {
-   imageURL = "./images/k.png"
+   imageURL : string = "./images/k.png";
+   table_width : number = 500;
+   show_class : boolean = true;
+   show_class_text : string = "show";
+   is_red : boolean = true;
+   size : number = 24;
+   array: any[] = [];
    constructor() {
        setInterval(()=>this.imageURL = './images/p.png', 1000)
    }
 }
-// Component Binding
-@Component({
-    template: `
-        &lt;child [data]="dataSource"&gt;&lt;/child&gt;    
-    `
-})
-export class Parent {
-    dataSource = 'My Source'
-    constructor() {
-        setInterval(()=&gt; this.dataSource = "My S" + Date.now(),1000)
-    }
+
+// Tow Way Biding
+// module.ts
+import {FormsModule} from '@angular/forms';
+imports: [FormsModule]
+// component.ts
+public name : string : '';
+// component.html
+&lt;h3&gt;{{name}}&lt;h3/&gt;
+&lt;input type="text" [{ngModel}]="name" [ngModelOptions]="{standalone:true}" /&gt;
+// Template reference variables
+// component.html
+&lt;input type="text" #txtName /&gt;
+&lt;button (click)="getName(txtName.value)" type="button"/&gt;&lt;button/&gt;
+
+&lt;input type="text" ref-txtName /&gt;
+&lt;button (click)="getNameComponent()" type="button"/&gt;&lt;button/&gt;
+// component.ts
+getName(txtName) : void {
+    console.log(txtName);
 }
-@Component({
-    selector: 'child',
-    template: `
-     &lt;h2&gt;{{data}}&lt;/h2&gt;
-    `
-})
-export class Child {
-    @Input data
+import {ViewChild,ElementRef} from '@angular/core';
+@ViewChild('txtName') name : ElementRef;
+getNameComponent() : void {
+    console.log(this.name.nativeElement.value);
 }
                                 		</code></pre>
                                     </div>
@@ -131,10 +221,31 @@ export class Child {
                                 </div>
                                 <div id="angular-ngFor" class="section-block">
                                     <div class="code-block">
-                                        <h6>Update</h6>
+                                        <h6>*ngFor</h6>
                                         <pre><code class="language-javascript">
 &lt;li *ngFor="let cv of todo"&lt;{{cv}}&gt;/li&gt;
 										</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-ngIf" class="section-block">
+                                    <div class="code-block">
+                                        <h6>*ngIf</h6>
+                                        <pre><code class="language-javascript">
+&lt;p *ngIf="is_available; then true_condition else false_condition">&lt;/p&gt;
+
+&lt;ng-template #true_condition&gt;
+    &lt;p&gt;Điều kiện đúng&lt;/p&gt;
+&lt;/ng-template&gt;
+&lt;ng-template #false_condition&gt;
+    &lt;p&gt;Điều kiện sai&lt;/p&gt;
+&lt;/ng-template&gt;
+
+// OR
+
+&lt;p *ngIf="is_available; else false_condition"&gt;Điều kiện đúng&lt;/p&gt;
+&lt;ng-template #false_condition&gt;Điều kiện sai&lt;/ng-template&gt;
+                                		</code></pre>
                                     </div>
                                     <!--//code-block-->
                                 </div>
@@ -185,7 +296,7 @@ imports: [
                                     </div>
                                     <!--//code-block-->
                                 </div>
-                                <div id="angular-if" class="section-block">
+                                <div id="angular-ng-template class="section-block">
                                     <div class="code-block">
                                         <h6>*ngIF</h6>
                                         <p>Chứa component chính thực thi chương trình</p>
@@ -620,7 +731,7 @@ export class AppComponent {
                                                     <td>Tạo project Angular mới tên là PROJECT-NAME</td>
                                                 </tr>
                                                 <tr>
-                                                    <th>ng g component new-component</th>
+                                                    <th>ng g component new-component (--spec false) </th>
                                                     <td>Tạo component mới có tên là new-component</td>
                                                 </tr>
                                                 <tr>
@@ -653,6 +764,15 @@ export class AppComponent {
                                 <!--//section-block-->
                             </section>
                             <!--//doc-section-->
+                            <section id="#lifecycle-hook" class="doc-section">
+                                <div id="lifecycle-" class="section-block">
+                                    <div class="code-block">
+                                        <h6></h6>
+                                        <pre><code class="language-javascript">
+                                        </code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
                             </section>
                             <!--//doc-section-->
                         </div>
@@ -666,8 +786,9 @@ export class AppComponent {
                                 <a class="nav-link scrollto" href="#angular-section">Angular</a>
                                 <nav class="doc-sub-menu nav flex-column">
                                     <a class="nav-link scrollto" href="#angular-interpolation">Interpolation</a>
-                                    <a class="nav-link scrollto" href="#angular-property-binding">Property binding</a>
+                                    <a class="nav-link scrollto" href="#angular-data-binding">Data binding</a>
                                     <a class="nav-link scrollto" href="#angular-input">@Input</a>
+                                    <a class="nav-link scrollto" href="#angular-output">@Output</a>
                                     <a class="nav-link scrollto" href="#angular-ngFor">*ngFor</a>
                                     <a class="nav-link scrollto" href="#angular-ngIf">*ngIf</a>
                                     <a class="nav-link scrollto" href="#angular-delaretion">Delaretion</a>
@@ -685,6 +806,7 @@ export class AppComponent {
                                     <a class="nav-link scrollto" href="#angular-animation">Animation</a>
                                     <a class="nav-link scrollto" href="#angular-cli">Angular CLI</a>
                                 </nav>
+                                <a class="nav-link scrollto" href="#lifecycle-hook">Lifecycle Hook</a>
                                 <!--//nav-->
                             </nav>
                             <!--//doc-menu-->
