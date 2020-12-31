@@ -65,7 +65,8 @@ declarations: [
                                 <div id="angular-import" class="section-block">
                                     <div class="code-block">
                                         <h6>Import</h6>
-                                        <p>Chứa các module sử dụng trong ứng dụng hoặc các module sử dụng trong các component</p>
+                                        <p>Chứa các module sử dụng trong ứng dụng hoặc các module sử dụng trong các
+                                            component</p>
                                         <pre><code class="language-javascript">
 import { FormsModule } from @angular/forms;
 
@@ -169,7 +170,8 @@ export class AppComponent {
                                     <div class="code-block">
                                         <h6>Directive</h6>
                                         <p>
-                                            Directive trong Angular là một class javascript được khai báo với decorator @directive. Có 3 loại directive trong
+                                            Directive trong Angular là một class javascript được khai báo với decorator
+                                            @directive. Có 3 loại directive trong
                                             Angular: Component directive, Structural directive và Attribute directive
                                         </p>
                                         <pre><code class="language-javascript">
@@ -194,12 +196,12 @@ ng g directive &lt;ten_directive&gt;
                                                     <tr>
                                                         <th>lowercase</th>
                                                         <td>Chuyển chuỗi thành kí tự thường
-                                                        VD: Freetuts.net thành freetuts.net</td>
+                                                            VD: Freetuts.net thành freetuts.net</td>
                                                     </tr>
                                                     <tr>
                                                         <th>uppercase</th>
                                                         <td>Chuyển chuỗi thành kí tự hoa
-                                                        VD: Freetuts.net thành FREETUTS.NET</td>
+                                                            VD: Freetuts.net thành FREETUTS.NET</td>
                                                     </tr>
                                                     <tr>
                                                         <th>date</th>
@@ -269,14 +271,247 @@ export class AppComponent {
         // 2 và 6 là vị trí bắt đầu và vị trí kết thúc
     &lt;/div&gt;
 &lt;/div&gt;
-                                        </code></pre>
-                                        <pre><code class="language-javascript">
-// Tự tạo 1 pipe
-Để tạo và sử dụng 1 pipe trong project bạn cần làm các bước sau:
-1. Tạo pipe
-2. Import pipe vào project: khai báo trong file app.module.ts
-3. Sử dụng pipe trong file html
+
+// Create my Pipe
+app.name_pipe.ts
+import {Pipe, PipeTransform} from '@angular/core';
+@Pipe ({
+    name : 'sqrt'
+})
+export class SqrtPipe implements PipeTransform {
+    transform(val : number) : number {
+        return Math.sqrt(val);
+    }
+}
+//app.module.ts
+import { SqrtPipe } from './app.sqrt';
+@NgModule({
+    declarations: [
+        ...
+        // Khai báo sqrt pipe
+        SqrtPipe
+    ],
+    imports: [
+        BrowserModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
+})
+&lt;b&gt;Căn bậc hai của 25 là : {{25 | sqrt}}&lt;/b&gt;
                                 		</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-router" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Router</h6>
+                                        <pre><code class="language-javascript">
+// app.module.ts
+import {RouterModule} from '@angular/router'
+@NgModule({
+  declarations: [
+    AppComponent,
+    NewCmpComponent
+  ],
+  imports: [
+    BrowserModule,
+    // Cài đặt cho router: path nào tương ứng với component nào.
+    RouterModule.forRoot([
+      {
+         path: 'new-cmp',
+         component: NewCmpComponent
+      }
+   ])
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+&lt;a routerLink="new-cmp"&gt;Click vào đây để hiển thị New Component&lt;/a&gt;
+&lt;router-outlet&gt;&lt;/router-outlet&gt;
+                                		</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-service" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Service</h6>
+                                        <p>Chia sẻ dữ liệu giữa các component với nhau</p>
+                                        <pre><code class="language-javascript">
+// Install 
+ng g service myservice
+// Injectable module: module có thể mang vào sử dụng trong module khác - cơ chế Dependency Injection
+// app.module.ts
+import { MyserviceService } from './myservice.service';
+providers: [MyserviceService],
+// myservice.service.ts
+export class MyserviceService {
+
+  constructor() { }
+  myProperty;
+  getTodayDate() {
+    let ndate = new Date();
+    return ndate;
+  }
+}
+// app.component.ts
+import { MyserviceService } from './myservice.service';
+export class AppComponent {
+  constructor(private myservice: MyserviceService) { }
+  title = 'bai1';
+  todaydate;
+  propertyService;
+  ngOnInit() {
+    this.todaydate = this.myservice.getTodayDate();
+    this.myservice.myProperty = "myProperty: App Component";
+    this.propertyService = this.myservice.myProperty;
+  }
+}
+// app.component.html
+&lt;h3&gt;Dữ liệu todaydate ở App Component: {{todaydate}}&lt;/h3&gt;
+&lt;h3&gt;Property service: {{propertyService}}&lt;/h3&gt;
+                                		</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-http-service" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Http service</h6>
+                                        <pre><code class="language-javascript">
+// app.module.ts
+import { HttpClientModule } from '@angular/common/http';
+imports: [ HttpClientModule]
+// app.component.ts
+import { HttpClient } from '@angular/common/http';
+constructor(private myservice: MyserviceService, private http: HttpClient) { }
+results;
+ngOnInit() {
+    this.http.get("http://jsonplaceholder.typicode.com/users").subscribe(data => {
+      console.log(data);
+      this.results = data;
+    });
+  }
+// app.component.html
+&lt;tr *ngFor="let user of results"&gt;...&lt;/tr&gt;
+                                		</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-form" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Form</h6>
+                                        <pre><code class="language-javascript">
+// Template Driven Form
+// app.module.ts
+import { FormsModule } from '@angular/forms';
+imports: [FormsModule]
+// app.component.html
+&lt;form #userlogin="ngForm" (ngSubmit)="onClickSubmit(userlogin.value)"&gt;
+    &lt;input type="text" name="username" placeholder="username" ngModel&gt;
+    &lt;br /&gt;
+    &lt;input type="password" name="pwd" placeholder="password" ngModel&gt;
+    &lt;br /&gt;
+    &lt;input type="submit" value="submit"&gt;
+&lt;/form&gt;
+// app.component.ts
+export class AppComponent {
+    onClickSubmit(data) {
+        alert("Username bạn vừa nhập là : " + data.username);
+     }
+}
+// Model Driven Form
+// app.component.ts
+import { ReactiveFormsModule } from '@angular/forms';
+imports: [ReactiveFormsModule]
+// app.component.ts
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+export class AppComponent {
+    username;
+    formdata;
+    ngOnInit() {
+        this.formdata = new FormGroup({
+            username: new FormControl("Freetuts.net", Validators.compose([
+                Validators.required,
+                Validators.minLength(3),
+                Validators.maxLength(20)
+            ])),
+            pwd: new FormControl("abcd1234", this.pwdLengthValidator)
+        });
+    }
+    onClickSubmit(data) { this.username = data.username; }
+    pwdLengthValidator(control){
+    if(control.value.length &lt; 6){ return {pwd: true}; } }
+}
+// app.component.html
+&lt;div&gt;
+    &lt;form [formGroup]="formdata" (ngSubmit)="onClickSubmit(formdata.value)"&gt;
+        &lt;input type="text" class="fortextbox" name="username" placeholder="username" formControlName="username"&gt;
+        &lt;br /&gt;
+
+        &lt;input type="pwd" class="fortextbox" name="pwd" placeholder="pwd" formControlName="pwd"&gt;
+        &lt;br /&gt;
+
+        &lt;input type="submit" [disabled] = "!formdata.valid" class="forsubmit" value="Log In"&gt;
+    &lt;/form&gt;
+&lt;/div&gt;
+&lt;p&gt;
+    Bạn vừa nhập username : {{username}}
+&lt;/p&gt;
+                                		</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-animation" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Animation</h6>
+                                        <pre><code class="language-javascript">
+// app.module.ts
+import { BrowserModule } from '@angular/platform-browser';
+imports: [BrowserAnimationsModule],
+// app.component.html
+&lt;div&gt;
+    &lt;button (click)="animate()"&gt;Click Me&lt;/button&gt;
+    &lt;div [@myanimation]="state" class="rotate"&gt;
+        &lt;img style="width: 340px; height: 82px" src=""
+            width="100" height="100"&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+// app.component.ts
+import { trigger, state, style, transition, animate } from '@angular/animations';
+@Component({
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    styles: [`
+      div{
+         margin: 0 auto;
+         text-align: center;
+      }
+      .rotate{
+          width: 340px;
+          heigh: 82px;
+         border:solid 1px red;
+      }
+   `],
+    animations: [
+        trigger('myanimation', [
+            state('smaller', style({
+                transform: 'translateY(100px)'
+            })),
+            state('larger', style({
+                transform: 'translateY(0px)'
+            })),
+            transition('smaller &lt;=&gt; larger', animate('300ms ease-in'))
+        ])
+    ]
+})
+ 
+export class AppComponent {
+    state: string = "smaller";
+    animate() {
+        this.state = this.state == 'larger' ? 'smaller' : 'larger';
+    }
+}
+                                        </code></pre>
                                     </div>
                                     <!--//code-block-->
                                 </div>
@@ -305,6 +540,11 @@ export class AppComponent {
                                     <a class="nav-link scrollto" href="#angular-ng-template">ng-template</a>
                                     <a class="nav-link scrollto" href="#angular-directive">Directive</a>
                                     <a class="nav-link scrollto" href="#angular-pipe">Pipe</a>
+                                    <a class="nav-link scrollto" href="#angular-router">Router</a>
+                                    <a class="nav-link scrollto" href="#angular-service">Service</a>
+                                    <a class="nav-link scrollto" href="#angular-http-service">Http service</a>
+                                    <a class="nav-link scrollto" href="#angular-form">Form</a>
+                                    <a class="nav-link scrollto" href="#angular-animation">Animation</a>
                                 </nav>
                                 <!--//nav-->
                             </nav>
