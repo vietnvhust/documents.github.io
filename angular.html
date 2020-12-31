@@ -44,9 +44,87 @@
                                     <div class="code-block">
                                         <h6>Interpolation</h6>
                                         <pre><code class="language-javascript">
+// VD 1
 {{ title.length }}
 {{ 2 + 5 }}
 {{ "Hello, " + "Khanh" }}
+// VD 2
+@Component({
+    template: `
+        &lt;div&gt;
+            &lt;h2&gt;
+                {{message}}
+            &lt;/h2&gt;
+        &lt;/div&gt;
+    `
+})
+export class AppComponent {
+    message = "My Message"
+}
+                                		</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-input" class="section-block">
+                                    <div class="code-block">
+                                        <h6>@Input</h6>
+                                        <p>Để để chia sẻ biến hoặc giá trị nào đó từ component cha với component con bên trong, chúng ta có thể sử dụng @Input:</p>
+                                        <pre><code class="language-javascript">
+// children.component.ts
+import { Component, OnInit, Input } from '@angular/core';
+                                        </code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-property-binding" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Property Binding</h6>
+                                        <pre><code class="language-javascript">                                         
+// component.html
+&lt;button [disabled]="buttonDisabled"&gt;&lt;/button&gt;
+// component.ts
+@Component({
+    templateUrl: 'component.html',
+    selector: 'app-component',
+})
+export class Component {
+    buttonDisabled = true;
+}
+// Element Binding
+@Component({
+   template: `
+       &lt;div&gt;
+           &lt;img [src]="imageURL" /&gt;
+       &lt;/div&gt;
+   `
+})
+export class AppComponent {
+   imageURL = "./images/k.png"
+   constructor() {
+       setInterval(()=>this.imageURL = './images/p.png', 1000)
+   }
+}
+// Component Binding
+@Component({
+    template: `
+        &lt;child [data]="dataSource"&gt;&lt;/child&gt;    
+    `
+})
+export class Parent {
+    dataSource = 'My Source'
+    constructor() {
+        setInterval(()=&gt; this.dataSource = "My S" + Date.now(),1000)
+    }
+}
+@Component({
+    selector: 'child',
+    template: `
+     &lt;h2&gt;{{data}}&lt;/h2&gt;
+    `
+})
+export class Child {
+    @Input data
+}
                                 		</code></pre>
                                     </div>
                                     <!--//code-block-->
@@ -588,6 +666,8 @@ export class AppComponent {
                                 <a class="nav-link scrollto" href="#angular-section">Angular</a>
                                 <nav class="doc-sub-menu nav flex-column">
                                     <a class="nav-link scrollto" href="#angular-interpolation">Interpolation</a>
+                                    <a class="nav-link scrollto" href="#angular-property-binding">Property binding</a>
+                                    <a class="nav-link scrollto" href="#angular-input">@Input</a>
                                     <a class="nav-link scrollto" href="#angular-ngFor">*ngFor</a>
                                     <a class="nav-link scrollto" href="#angular-ngIf">*ngIf</a>
                                     <a class="nav-link scrollto" href="#angular-delaretion">Delaretion</a>
