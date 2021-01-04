@@ -14,6 +14,7 @@ body {
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #f9f9fb;
 }
 
 html, body {
@@ -972,6 +973,10 @@ select {
   padding: 0;
   padding-left: 34px;
   background: none;
+}
+
+.doc-sub-menu .doc-sub-menu .nav-link {
+  padding-left: 68px;
 }
 
 .doc-sub-menu .nav-link:first-child {

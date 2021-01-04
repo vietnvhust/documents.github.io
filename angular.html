@@ -33,6 +33,34 @@
 </head>
 
 <body class="body-green">
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="example.html">Example</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="angular.html">Angular</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="mysql.html">Mysql</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="reactjs.html">Reactjs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="vtiger.html">Vtiger</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
     <div class="page-wrapper">
         <div class="doc-wrapper">
             <div class="container">
@@ -506,8 +534,29 @@ import { SqrtPipe } from './app.sqrt';
                                     <div class="code-block">
                                         <h6>Router</h6>
                                         <pre><code class="language-javascript">
+// index.html
+&lt;base href="/"&gt;
 // app.module.ts
-import {RouterModule} from '@angular/router'
+import {RouterModule} from '@angular/router';
+const appRoutes: Routes = [
+  {
+     path: '',
+     redirecTo: '/index',
+     pathMatch: 'full'
+  },
+  {
+     path: 'index',
+     component: HomeComponent
+  },
+  {
+     path: 'about',
+     component: AboutComponent
+  },
+  {
+     path: '**',
+     component: 404Component
+  },
+]
 @NgModule({
   declarations: [
     AppComponent,
@@ -516,19 +565,95 @@ import {RouterModule} from '@angular/router'
   imports: [
     BrowserModule,
     // Cài đặt cho router: path nào tương ứng với component nào.
-    RouterModule.forRoot([
-      {
-         path: 'new-cmp',
-         component: NewCmpComponent
-      }
-   ])
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-&lt;a routerLink="new-cmp"&gt;Click vào đây để hiển thị New Component&lt;/a&gt;
+// app.component.html
+&lt;a routerLink="name-path"&gtClick vào đây để hiển thị New Component&lt;/a&gt;
+// OR
+&lt;a routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['/']"&gt;Click vào đây để hiển thị New Component&lt;/a&gt;
+&lt;a [routerLink]="['/about']"&gt;Click vào đây để hiển thị New Component&lt;/a&gt;
 &lt;router-outlet&gt;&lt;/router-outlet&gt;
+// Router by Event
+// component.ts
+import {Router} from '@angular/core';
+export class AppComponent {
+    constructor(){
+        private serviceRouter : Router
+    }
+    navigate(url:string){
+        this.serviceRouter.navigate([url]);
+        // OR
+        this.serviceRouter.navigateByUrl(url);
+    }
+}
+// component.html
+&lt;button (click)="navigate('contact')" "&gt;&lt;/button&gt;
                                 		</code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="angular-router-get-params" class="section-block">
+                                    <div class="code-block">
+                                        <h6>Get Params</h6>
+                                        <pre><code class="language-javascript">
+// 1. app.routes.ts
+import {Routes} form '@angular/core';
+import { HomeComponent } form './components/...'
+export const appRoutes: Routes = [
+  {
+     path: '',
+     redirecTo: '/index',
+     pathMatch: 'full'
+  },
+  {
+     path: 'index',
+     component: HomeComponent
+  },
+  {
+     path: 'about',
+     component: AboutComponent
+  },
+  {
+     path: 'product/:id',
+     component: ProductDetailComponent
+  },
+  {
+     path: '**',
+     component: 404Component
+  },
+]
+// 2. services/product.service.ts
+export class ProductService {
+    public products : Product[] = [
+        {
+            id: 1,
+            name: 'Iphone',
+            price: 1000,
+            status: true,
+        }
+    ];
+    getAllProducts(){return this.products}
+    getProductByID(id){
+        return product;
+    }
+}
+// 3. models/product.class.ts
+export class Product {
+    public id: number;
+    public name: string;
+    public price: number;
+    public status: boolean;
+    constructor(id:number,name:string,price:number,status:boolean){
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.status = status;
+    }
+}
+                                        </code></pre>
                                     </div>
                                     <!--//code-block-->
                                 </div>
@@ -537,7 +662,7 @@ import {RouterModule} from '@angular/router'
                                         <h6>Service</h6>
                                         <p>Chia sẻ dữ liệu giữa các component với nhau</p>
                                         <pre><code class="language-javascript">
-// Install 
+// Install
 ng g service myservice
 // Injectable module: module có thể mang vào sử dụng trong module khác - cơ chế Dependency Injection
 // app.module.ts
@@ -765,14 +890,136 @@ export class AppComponent {
                             </section>
                             <!--//doc-section-->
                             <section id="#lifecycle-hook" class="doc-section">
-                                <div id="lifecycle-" class="section-block">
+                                <div id="lifecycle-hook" class="section-block">
                                     <div class="code-block">
-                                        <h6></h6>
+                                        <h6>Lifecycle Hook</h6>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Hook</th>
+                                                    <th>Mục đích & thời điểm</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th>ngOnChanges()</th>
+                                                    <td>Thự thi khi Angular thiết lập các thuộc tính đầu vào ràng buộc dữ liệu. Được gọi trước ngOnInit() và bất cứ khi nào một
+                                                    hoặc nhiều thuộc tính đầu vào ràng buộc dữ liệu thay đổi.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>ngOnInit()</th>
+                                                    <td>Khởi tạo directive / component sau khi Angular hiển thị các thuộc tính ràng buộc dữ liệu và đặt các thuộc tính đầu vào
+                                                    của directive / component. Được gọi một lần, sau ngOnChanges() đầu tiên.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>ngDoCheck()</th>
+                                                    <td>Phát hiện và hành động theo những thay đổi mà Angular không thể hoặc sẽ không tự mình phát hiện. Được gọi trong mỗi lần
+                                                    chạy phát hiện thay đổi, ngay sau ngOnChanges() và ngOnInit().</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>ngAfterContentInit()</th>
+                                                    <td>Thự thi sau khi Angular thêm nội dung bên ngoài vào view của component / view mà directive được đưa vào. Được gọi một
+                                                    lần sau ngDoCheck() đầu tiên.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>ngAfterContentChecked()</th>
+                                                    <td>Thự thi sau khi Angular đã kiểm tra nội dung bên ngoài đã được đưa vào view của component. Được gọi sau
+                                                    ngAfterContentInit() và mọi ngDoCheck() tiếp theo.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>ngAfterViewInit()</th>
+                                                    <td>Thự thi sau khi Angular khởi tạo các view của component và các view con / view mà directive được đưa vào. Được gọi một
+                                                    lần sau ngAfterContentChecked() đầu tiên.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>ngAfterViewChecked()</th>
+                                                    <td>Thực thi sau khi Angular kiểm tra các view của component và các view con /view mà directive được đưa vào. Được gọi sau
+                                                    ngAfterViewInit() và mọi ngAfterContentChecked() tiếp theo.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>ngOnDestroy()</th>
+                                                    <td>Dọn dẹp ngay trước khi Angular phá hủy directive / component. Hủy đăng ký Observables và tách trình xử lý sự kiện để
+                                                    tránh rò rỉ bộ nhớ. Được gọi ngay trước khi Angular phá hủy directive / component.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                         <pre><code class="language-javascript">
                                         </code></pre>
                                     </div>
                                     <!--//code-block-->
                                 </div>
+                                <div id="lifecycle-ngoninit" class="section-block">
+                                    <div class="code-block">
+                                        <h6>ngOnInit</h6>
+                                        <pre><code class="language-javascript">
+import {OnInit, OnDestroy, OnChange} from '@angular/core';
+export class LifeCycleHook implements OnInit, OnDestroy, OnChange {
+    public products : any[] = [];
+    constructor(){}
+
+    ngOnInit(){
+        this.products = [{
+            id: 1,
+            title: 'Title',
+            ...
+        }]
+    }
+}                                            
+                                        </code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="lifecycle-ngonchange" class="section-block">
+                                    <div class="code-block">
+                                        <h6>ngOnChange</h6>
+                                        <pre><code class="language-javascript">
+import {OnInit, OnDestroy, OnChange, simpleChanges} from '@angular/core';
+ngOnChange(simpleChanges){
+    console.log(simpleChanges);
+}
+                                        </code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+                                <div id="lifecycle-ngcontent" class="section-block">
+                                    <div class="code-block">
+                                        <h6>ngContent</h6>
+                                        <pre><code class="language-javascript">
+// parent.component.html
+&lt;children-component&gt;
+    &lt;h1>This is tag H1&lt;/h1&gt;
+    &lt;h2 class="h2"&gt;This is tag H2&lt;/h2&gt;
+    &lt;h3 attr-h3&gt;This is tag H3&lt;/h3&gt;
+    &lt;h4 attr-h4="h4"&gt;This is tag H4&lt;/h4&gt;
+    &lt;h5 with height&gt;This is tag H5&lt;/h5&gt;
+    &lt;h6 id="not-working"&gt;This is tag H6&lt;/h6&gt;
+&lt;children-component/&gt;
+// children.component.ts
+&lt;ng-content&gt;&lt;/ng-content&gt;
+&lt;ng-content select=".class"&gt;&lt;/ng-content&gt;
+&lt;ng-content select="[attr | attr = 'value'][attr1]..."&gt;&lt;/ng-content&gt;
+                                        </code></pre>
+                                    </div>
+                                    <!--//code-block-->
+                                </div>
+<!--                                <div id="lifecycle-ngaftercontentinit" class="section-block">-->
+<!--                                    <div class="code-block">-->
+<!--                                        <h6>ngAfterContentInit</h6>-->
+<!--                                        <pre><code class="language-javascript">-->
+
+<!--                                        </code></pre>-->
+<!--                                    </div>-->
+<!--                                    &lt;!&ndash;//code-block&ndash;&gt;-->
+<!--                                </div>-->
+<!--                                <div id="lifecycle-ngaftercontentchecked" class="section-block">-->
+<!--                                    <div class="code-block">-->
+<!--                                        <h6>ngAfterContentChecked</h6>-->
+<!--                                        <pre><code class="language-javascript">-->
+<!--                                -->
+<!--                                        </code></pre>-->
+<!--                                    </div>-->
+<!--                                    &lt;!&ndash;//code-block&ndash;&gt;-->
+<!--                                </div>-->
                             </section>
                             <!--//doc-section-->
                         </div>
@@ -800,6 +1047,7 @@ export class AppComponent {
                                     <a class="nav-link scrollto" href="#angular-directive">Directive</a>
                                     <a class="nav-link scrollto" href="#angular-pipe">Pipe</a>
                                     <a class="nav-link scrollto" href="#angular-router">Router</a>
+                                    <a class="nav-link scrollto" href="#angular-router-get-params">Get Params</a>
                                     <a class="nav-link scrollto" href="#angular-service">Service</a>
                                     <a class="nav-link scrollto" href="#angular-http-service">Http service</a>
                                     <a class="nav-link scrollto" href="#angular-form">Form</a>
@@ -807,6 +1055,17 @@ export class AppComponent {
                                     <a class="nav-link scrollto" href="#angular-cli">Angular CLI</a>
                                 </nav>
                                 <a class="nav-link scrollto" href="#lifecycle-hook">Lifecycle Hook</a>
+                                <nav class="doc-sub-menu nav flex-column">
+                                    <a class="nav-link scrollto" href="#lifecycle-ngoninit">ngOnInit</a>
+                                    <a class="nav-link scrollto" href="#lifecycle-ngonchange">ngOnChange</a>
+                                    <a class="nav-link scrollto" href="#lifecycle-ngcontent">ngContent</a>
+                                        <nav class="doc-sub-menu nav flex-column">
+                                            <a class="nav-link scrollto" href="#lifecycle-ngaftercontentinit">ngAfterContentInit</a>
+                                            <a class="nav-link scrollto" href="#lifecycle-ngaftercontentchecked">ngAfterContentChecked</a>
+                                        </nav>
+                                    <a class="nav-link scrollto" href="#lifecycle-ngafterviewtinit">ngAfterViewInit</a>
+                                    <a class="nav-link scrollto" href="#lifecycle-ngafterviewchecked">ngAfterViewChecked</a>
+                                </nav>
                                 <!--//nav-->
                             </nav>
                             <!--//doc-menu-->
@@ -825,12 +1084,12 @@ export class AppComponent {
     <!--//page-wrapper-->
 
     <!-- Main Javascript -->
-    <script type="text/javascript" src="assets/plugins/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>    
-    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>      
-    <script type="text/javascript" src="assets/plugins/stickyfill/dist/stickyfill.min.js"></script>                                                             
-    <script type="text/javascript" src="assets/js/main.js"></script>
+    <script type="text/javascript" src="https://webdonganh.com/documents/assets/plugins/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="https://webdonganh.com/documents/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://webdonganh.com/documents/assets/plugins/prism/prism.js"></script>
+    <script type="text/javascript" src="https://webdonganh.com/documents/assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+    <script type="text/javascript" src="https://webdonganh.com/documents/assets/plugins/stickyfill/dist/stickyfill.min.js"></script>
+    <script type="text/javascript" src="https://webdonganh.com/documents/assets/js/main.js"></script>
 
 </body>
 
